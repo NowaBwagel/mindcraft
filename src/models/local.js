@@ -55,6 +55,16 @@ export class Local {
             console.error('Failed to send Ollama request.');
             console.error(err);
         }
+        // Append body and data to JSONL file
+        const jsonLine = JSON.stringify({
+            body: body,
+            response: data
+        });
+
+        // Assuming you have a file path or stream to write to
+        const fs = require('fs');
+        fs.appendFileSync('local_cache.jsonl', jsonLine + '\n');
+        
         return data;
     }
 }
